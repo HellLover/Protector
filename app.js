@@ -5,8 +5,6 @@ const { token, prefix } = require('./config.json');
 const { MessageEmbed } = require("discord.js");
 const guildInvites = new Map();
 const { getPokemon } = require('./utils/pokemon');
-const { CanvasSenpai } = require("canvas-senpai");
-const canva = new CanvasSenpai();
 
 const ownerID = "544225039470428160"
 
@@ -158,14 +156,6 @@ client.on('guildMemberAdd', async member => {
 
   member.roles.add(role)
 
-  let data = await canva.welcome(member, { link: "https://wallpapercave.com/wp/wp5128415.jpg" })
-
-
-const attachment = new Discord.MessageAttachment(
-  data,
-  "welcome-image.png"
-);
-
   if(member.guild.id !== stats.serverID) return;
     client.channels.cache.get(stats.total).setName(`Всего участников: ${member.guild.memberCount}`);
     client.channels.cache.get(stats.member).setName(`Людей: ${member.guild.members.cache.filter(m => !m.user.bot).size}`);
@@ -179,13 +169,12 @@ const attachment = new Discord.MessageAttachment(
         const embed = new MessageEmbed()
         .setAuthor(`${member.user.tag}`, member.user.displayAvatarURL({ dynamic: true }))
             .setColor("#0000ff")
-            .setDescription(`${member.user} зашёл на сервер и он **${member.guild.memberCount}-й** участник на нашем сервере. \n Его пригласил ${usedInvite.inviter}. \n Число уиспользование этого инвайта: **${usedInvite.uses}**`)
+            .setDescription(`${member.user} зашёл на сервер и он **${member.guild.memberCount}-й** участник на нашем сервере. \n Его пригласил ${usedInvite.inviter}. \n Число использование этого инвайта: **${usedInvite.uses}**`)
             .setTimestamp()
             .addField("Инвайт ссылка", `${usedInvite.url}`)
-            .setImage('attachment://welcome-image.png')
         const welcomeChannel = member.guild.channels.cache.find(channel => channel.id === '664901915326414879');
         if(welcomeChannel) {
-            welcomeChannel.send({ embed, files: [attachment] });
+            welcomeChannel.send(embed);
         }
     }
     catch(err) {
