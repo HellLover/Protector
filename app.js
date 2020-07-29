@@ -5,6 +5,8 @@ const { token, prefix } = require('./config.json');
 const { MessageEmbed } = require("discord.js");
 const guildInvites = new Map();
 const { getPokemon } = require('./utils/pokemon');
+const { CanvasSenpai } = require("canvas-senpai");
+const canva = new CanvasSenpai();
 
 const ownerID = "544225039470428160"
 
@@ -44,7 +46,7 @@ catch(e) {
 
 if(message.content.toLowerCase().startsWith('pr.pokemon')) {
 
-  if(!args[0]) return message.channel.send({ embed: { color: "RED", description: "Вы должны указать название покемона!"}})
+  if(!args[0]) return message.channel.send({ embed: { color: "RED", description: "You have to specify the pokemon name!"}})
         const pokemon = message.content.toLowerCase().split(" ")[1];
         try {
             const pokeData = await getPokemon(pokemon);
@@ -69,7 +71,7 @@ if(message.content.toLowerCase().startsWith('pr.pokemon')) {
             message.channel.send(embed);
         }
         catch(err) {
-            message.channel.send({ embed: { color: "RED", description: `Покемон ${pokemon} не найден!`}});
+            message.channel.send({ embed: { color: "RED", description: `Pokemon ${pokemon} not found!`}});
         }
     }
 
@@ -156,6 +158,14 @@ client.on('guildMemberAdd', async member => {
 
   member.roles.add(role)
 
+  let data = await canva.welcome(member, { link: "https://wallpapercave.com/wp/wp5128415.jpg" })
+
+
+const attachment = new Discord.MessageAttachment(
+  data,
+  "welcome-image.png"
+);
+
   if(member.guild.id !== stats.serverID) return;
     client.channels.cache.get(stats.total).setName(`Всего участников: ${member.guild.memberCount}`);
     client.channels.cache.get(stats.member).setName(`Людей: ${member.guild.members.cache.filter(m => !m.user.bot).size}`);
@@ -171,10 +181,11 @@ client.on('guildMemberAdd', async member => {
             .setColor("#0000ff")
             .setDescription(`${member.user} зашёл на сервер и он **${member.guild.memberCount}-й** участник на нашем сервере. \n Его пригласил ${usedInvite.inviter}. \n Число уиспользование этого инвайта: **${usedInvite.uses}**`)
             .setTimestamp()
-            .addField("Инвайт ссылка", `${usedInvite.url}`);
+            .addField("Инвайт ссылка", `${usedInvite.url}`)
+            .setImage('attachment://welcome-image.png')
         const welcomeChannel = member.guild.channels.cache.find(channel => channel.id === '664901915326414879');
         if(welcomeChannel) {
-            welcomeChannel.send(embed);
+            welcomeChannel.send({ embed, files: [attachment] });
         }
     }
     catch(err) {
