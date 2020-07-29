@@ -10,7 +10,6 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "discord.js": "^12.2.0",
-    "canvas-senpai": "0.0.2"
+    "discord.js": "^12.2.0"
   }
 }
