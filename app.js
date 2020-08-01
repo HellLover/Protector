@@ -3,8 +3,10 @@ const Protector = require("./handlers/ClientBuilder.js");
 const client = new Protector({ partials: ['MESSAGE', 'REACTION']});
 const { token, prefix } = require('./config.json');
 const { MessageEmbed } = require("discord.js");
-const guildInvites = new Map();
-const { getPokemon } = require('./utils/pokemon');
+const { CanvasSenpai } = require("canvas-senpai");
+const canva = new CanvasSenpai();
+const { Canvas } = require("canvas-constructor")
+const fetch = require("node-fetch")
 
 const ownerID = "544225039470428160"
 
@@ -15,12 +17,12 @@ let stats = {
     bots: "736953890557263882"
 }
 
-client.on('ready', () => {
+client.on('ready', async () => {
   client.user.setActivity(`HellLover Staff Only`, {
     type: "WATCHING"
   })
   console.log(`${client.user.username} Is Online !`)
-});
+})
 
 client.on('message', async message => {
 
@@ -42,38 +44,37 @@ try {
 catch(e) {
    }
 
-if(message.content.toLowerCase().startsWith('pr.pokemon')) {
+   if(message.content === "pr.rank") {
 
-  if(!args[0]) return message.channel.send({ embed: { color: "RED", description: "You have to specify the pokemon name!"}})
-        const pokemon = message.content.toLowerCase().split(" ")[1];
-        try {
-            const pokeData = await getPokemon(pokemon);
-            const {
-                sprites,
-                stats,
-                weight,
-                name,
-                id,
-                base_experience,
-                abilities,
-                types
-            } = pokeData;
-            const embed = new MessageEmbed();
-            embed.setColor(0x00ffff)
-            embed.setTitle(`${name} #${id}`)
-            embed.setThumbnail(`${sprites.front_default}`);
-            stats.forEach(stat => embed.addField(stat.stat.name, stat.base_stat, true));
-            types.forEach(type => embed.addField('Type', type.type.name, true));
-            embed.addField('Weight', weight, true);
-            embed.addField('Base Experience', base_experience, true);
-            message.channel.send(embed);
-        }
-        catch(err) {
-            message.channel.send({ embed: { color: "RED", description: `Pokemon ${pokemon} not found!`}});
-        }
-    }
+   let data = await canva.rankcard(
+     {
+       link: "https://i.pinimg.com/originals/76/0e/d7/760ed7f52c90870503762ac92db92adc.jpg",
+       name: message.author.username,
+       discriminator: message.author.discriminator,
+       level: 10,
+       rank: 6,
+       currentXP: 679,
+       fullXP: 1000,
+       avatar: message.author.displayAvatarURL({ format: "png"})
 
-  });
+     })
+
+
+
+     const attachment = new discord.MessageAttachment(
+     data,
+      "welcome-image.png"
+    );
+
+    message.channel.send(
+      ``,
+      attachment
+    );
+
+
+
+  }
+})
 
 client.on('messageReactionAdd', async (reaction, user) => {
     const handleStarboard = async () => {
@@ -141,45 +142,35 @@ client.package = require("./package.json");
 client.on("warn", console.warn); // This will warn you via logs if there was something wrong with your bot.
 client.on("error", console.error); // This will send you an error message via logs if there was something missing with your coding.
 
-client.on('inviteCreate', async invite => guildInvites.set(invite.guild.id, await invite.guild.fetchInvites()));
-client.on('ready', () => {
-    client.guilds.cache.forEach(guild => {
-        guild.fetchInvites()
-            .then(invites => guildInvites.set(guild.id, invites))
-            .catch(err => console.log(err));
-    });
-});
-
 client.on('guildMemberAdd', async member => {
 
   var role = member.guild.roles.cache.find(role => role.name == 'Member');
 
   member.roles.add(role)
 
+  let data = await canva.welcome(member, { link: "https://wallpapercave.com/wp/wp5128415.jpg" })
+
+
+const attachment = new Discord.MessageAttachment(
+  data,
+  "welcome-image.png"
+);
+
   if(member.guild.id !== stats.serverID) return;
     client.channels.cache.get(stats.total).setName(`Всего участников: ${member.guild.memberCount}`);
     client.channels.cache.get(stats.member).setName(`Людей: ${member.guild.members.cache.filter(m => !m.user.bot).size}`);
     client.channels.cache.get(stats.bots).setName(`Ботов: ${member.guild.members.cache.filter(m => m.user.bot).size}`);
 
-    const cachedInvites = guildInvites.get(member.guild.id);
-    const newInvites = await member.guild.fetchInvites();
-    guildInvites.set(member.guild.id, newInvites);
-    try {
-        const usedInvite = newInvites.find(inv => cachedInvites.get(inv.code).uses < inv.uses);
         const embed = new MessageEmbed()
         .setAuthor(`${member.user.tag}`, member.user.displayAvatarURL({ dynamic: true }))
             .setColor("#0000ff")
-            .setDescription(`${member.user} зашёл на сервер и он **${member.guild.memberCount}-й** участник на нашем сервере. \n Его пригласил ${usedInvite.inviter}. \n Число использование этого инвайта: **${usedInvite.uses}**`)
+            .setDescription(`${member.user} зашёл на сервер и он **${member.guild.memberCount}-й** участник на нашем сервере.`)
             .setTimestamp()
-            .addField("Инвайт ссылка", `${usedInvite.url}`)
+            .setImage('attachment://welcome-image.png')
         const welcomeChannel = member.guild.channels.cache.find(channel => channel.id === '664901915326414879');
         if(welcomeChannel) {
-            welcomeChannel.send(embed);
+            welcomeChannel.send({ embed, files: [attachment] });
         }
-    }
-    catch(err) {
-        console.log(err);
-    }
 
 });
 
