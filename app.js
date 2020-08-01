@@ -5,8 +5,6 @@ const { token, prefix } = require('./config.json');
 const { MessageEmbed } = require("discord.js");
 const { CanvasSenpai } = require("canvas-senpai");
 const canva = new CanvasSenpai();
-const { Canvas } = require("canvas-constructor")
-const fetch = require("node-fetch")
 
 const ownerID = "544225039470428160"
 
@@ -43,37 +41,6 @@ try {
 
 catch(e) {
    }
-
-   if(message.content === "pr.rank") {
-
-   let data = await canva.rankcard(
-     {
-       link: "https://i.pinimg.com/originals/76/0e/d7/760ed7f52c90870503762ac92db92adc.jpg",
-       name: message.author.username,
-       discriminator: message.author.discriminator,
-       level: 10,
-       rank: 6,
-       currentXP: 679,
-       fullXP: 1000,
-       avatar: message.author.displayAvatarURL({ format: "png"})
-
-     })
-
-
-
-     const attachment = new discord.MessageAttachment(
-     data,
-      "welcome-image.png"
-    );
-
-    message.channel.send(
-      ``,
-      attachment
-    );
-
-
-
-  }
 })
 
 client.on('messageReactionAdd', async (reaction, user) => {
