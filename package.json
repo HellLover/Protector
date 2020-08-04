@@ -1,0 +1,22 @@
+{
+  "name": "protector",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "canvacord": "^3.0.9",
+    "canvas-constructor": "^4.0.0",
+    "canvas-senpai": "0.0.2",
+    "discord-logs": "^1.7.6",
+    "discord.js": "^12.2.0",
+    "mongoose": "^5.9.26",
+    "quick.db": "^7.1.1",
+    "quickmongo": "^1.0.8"
+  }
+}
