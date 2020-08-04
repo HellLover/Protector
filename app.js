@@ -3,7 +3,7 @@
 const Discord = require("discord.js");
 const Protector = require("./handlers/ClientBuilder.js");
 const client = new Protector({ partials: ['MESSAGE', 'REACTION']});
-const { token, prefix } = require('./config.json');
+const { token, prefix, ownerID } = require('./config.json');
 const { MessageEmbed } = require("discord.js");
 const { CanvasSenpai } = require("canvas-senpai");
 const canva = new CanvasSenpai();
@@ -12,9 +12,6 @@ const canvas = new Canvacord();
 const logs = require("discord-logs");
 logs(client)
 const db = require("quick.db");
-const ownerID = "544225039470428160";
-const { Database } = require("quickmongo");
-const mongo = new Database("mongodb://localhost/quickmongo");
 
 exportData();
 ///////////////////////////////// Defined tools /////////////////////////////////
