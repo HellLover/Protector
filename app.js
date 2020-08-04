@@ -13,7 +13,6 @@ const logs = require("discord-logs");
 logs(client)
 const db = require("quick.db");
 
-exportData();
 ///////////////////////////////// Defined tools /////////////////////////////////
 
 let stats = {
@@ -160,13 +159,6 @@ function match(msg, i) {
   );
   if (!user) return undefined;
   return user.user;
-}
-
-function exportData() {
-    const data = db.all();
-    mongo.import(data).then(() => {
-        console.log("Successfully exported quick.db data to quickmongo!");
-    });
 }
 
 ///////////////////////////////// Starboard /////////////////////////////////
