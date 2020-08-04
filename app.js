@@ -12,7 +12,10 @@ const canvas = new Canvacord();
 const logs = require("discord-logs");
 logs(client)
 const db = require("quick.db");
+const { Database } = require("quickmongo");
+const mongo = new Database("mongodb://localhost:27017/root");
 
+exportData();
 ///////////////////////////////// Defined tools /////////////////////////////////
 
 let stats = {
@@ -159,6 +162,13 @@ function match(msg, i) {
   );
   if (!user) return undefined;
   return user.user;
+}
+
+function exportData() {
+    const data = db.all();
+    mongo.import(data).then(() => {
+        console.log("Successfully exported quick.db data to quickmongo!");
+    });
 }
 
 ///////////////////////////////// Starboard /////////////////////////////////
