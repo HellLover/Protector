@@ -162,9 +162,11 @@ client.on('messageDelete', message => {
                 .setAuthor(`${message.author.tag}`, message.author.displayAvatarURL())
                 .setColor(0xff0000)
                 .setDescription(`Сообщение было удалено в <#${message.channel.id}>`)
+                .addField("Пользователь", message.author)
                 .addField("Содержание", message.content)
                 .addField("ID", `\`\`\`css\nUser: ${message.author.id}\nMessage: ${message.id}\n\`\`\``)
-                .setTimestamp();
+                .addField("Дата", message.createdAt.toLocaleString())
+                .setFooter("Protector", "https://media2.giphy.com/media/VelhTbcFUDdDOrmFUL/giphy.gif")
             channel.send(embed);
         }
     }
