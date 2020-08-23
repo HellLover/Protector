@@ -25,8 +25,8 @@ const tempChannels = new TempChannels(client);
 tempChannels.registerChannel("747060794054934588", {
     childCategory: "747060407339974658",
     childAutoDeleteIfEmpty: true,
-    childAutoDeleteIfOwnerLeaves: true,
-    childMaxUsers: 3,
+    childAutoDeleteIfOwnerLeaves: false,
+    childMaxUsers: 5,
     childFormat: (member, count) => `Войс ${member.user.username}`
 });
 
