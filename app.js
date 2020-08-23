@@ -19,6 +19,17 @@ let stats = {
     bots: "736953890557263882"
 }
 
+const TempChannels = require("discord-temp-channels");
+const tempChannels = new TempChannels(client);
+
+tempChannels.registerChannel("747060794054934588", {
+    childCategory: "747060407339974658",
+    childAutoDeleteIfEmpty: true,
+    childAutoDeleteIfOwnerLeaves: true,
+    childMaxUsers: 3,
+    childFormat: (member, count) => `Войс ${member.user.username}`
+});
+
 client.on('ready', async () => {
   client.user.setActivity(`HellLover Team`, {
     type: "STREAMING",
