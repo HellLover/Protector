@@ -150,9 +150,9 @@ client.on('guildMemberAdd', async member => {
   welChannel.send(attachment)
     
     if(member.guild.id !== stats.serverID) return;
-      client.channels.cache.get(stats.total).setName(`Total Member Count: ${member.guild.memberCount}`);
-      client.channels.cache.get(stats.channels).setName(`Channels: ${member.guild.channels.cache.size}`);
-      client.channels.cache.get(stats.roles).setName(`Roles: ${member.guild.roles.cache.size}`);
+      client.channels.cache.get(stats.total).setName(`Всего участников: ${member.guild.memberCount}`);
+      client.channels.cache.get(stats.channels).setName(`Каналов: ${member.guild.channels.cache.size}`);
+      client.channels.cache.get(stats.roles).setName(`Ролей: ${member.guild.roles.cache.size}`);
   });
 
   client.on("guildMemberRemove", async member => {
@@ -167,9 +167,9 @@ client.on('guildMemberAdd', async member => {
   leaveChannel.send(attachment)
       
       if(member.guild.id !== stats.serverID) return;
-      client.channels.cache.get(stats.total).setName(`Total Member Count: ${member.guild.memberCount}`);
-      client.channels.cache.get(stats.channels).setName(`Channels: ${member.guild.channels.cache.size}`);
-      client.channels.cache.get(stats.roles).setName(`Roles: ${member.guild.roles.cache.size}`);
+      client.channels.cache.get(stats.total).setName(`Всего участников: ${member.guild.memberCount}`);
+      client.channels.cache.get(stats.channels).setName(`Каналов: ${member.guild.channels.cache.size}`);
+      client.channels.cache.get(stats.roles).setName(`Ролей: ${member.guild.roles.cache.size}`);
       
 })
 
