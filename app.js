@@ -147,7 +147,7 @@ client.on('guildMemberAdd', async member => {
 
   let img = await canvas.welcome({ username: member.user.username, discrim: member.user.discriminator, avatarURL: member.user.displayAvatarURL({ format: "png" }) });
   const attachment = new Discord.MessageAttachment(img, "welcome.png")
-  welChannel.send("Добро пожаловать", attachment)
+  welChannel.send(attachment)
     
     if(member.guild.id !== stats.serverID) return;
       client.channels.cache.get(stats.total).setName(`Total Member Count: ${member.guild.memberCount}`);
