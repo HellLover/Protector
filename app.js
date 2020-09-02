@@ -15,8 +15,8 @@ logs(client)
 let stats = {
     serverID: '602514533764038709',
     total: "736953819497365616",
-    member: "736953950317838427",
-    bots: "736953890557263882"
+    channels: "741266343361249330",
+    roles: "741266387116228688"
 }
 
 const TempChannels = require("discord-temp-channels");
@@ -25,7 +25,7 @@ const tempChannels = new TempChannels(client);
 tempChannels.registerChannel("747060794054934588", {
     childCategory: "747060407339974658",
     childAutoDeleteIfEmpty: true,
-    childAutoDeleteIfOwnerLeaves: false,
+    childAutoDeleteIfOwnerLeaves: true,
     childMaxUsers: 5,
     childFormat: (member, count) => `Войс ${member.user.username}`
 });
@@ -148,6 +148,11 @@ client.on('guildMemberAdd', async member => {
   let img = await canvas.welcome({ username: member.user.username, discrim: member.user.discriminator, avatarURL: member.user.displayAvatarURL({ format: "png" }) });
   const attachment = new Discord.MessageAttachment(img, "welcome.png")
   welChannel.send("Добро пожаловать", attachment)
+    
+    if(member.guild.id !== stats.serverID) return;
+      client.channels.cache.get(stats.total).setName(`Total Member Count: ${member.guild.memberCount}`);
+      client.channels.cache.get(stats.channels).setName(`Channels: ${member.guild.channels.cache.size}`);
+      client.channels.cache.get(stats.roles).setName(`Roles: ${member.guild.roles.cache.size}`);
   });
 
   client.on("guildMemberRemove", async member => {
@@ -160,6 +165,12 @@ client.on('guildMemberAdd', async member => {
   let img = await canvas.leave({ username: member.user.username, discrim: member.user.discriminator, avatarURL: member.user.displayAvatarURL({ format: "png" }) });
   const attachment = new Discord.MessageAttachment(img, "leave.png")
   leaveChannel.send(attachment)
+      
+      if(member.guild.id !== stats.serverID) return;
+      client.channels.cache.get(stats.total).setName(`Total Member Count: ${member.guild.memberCount}`);
+      client.channels.cache.get(stats.channels).setName(`Channels: ${member.guild.channels.cache.size}`);
+      client.channels.cache.get(stats.roles).setName(`Roles: ${member.guild.roles.cache.size}`);
+      
 })
 
 ///////////////////////////////// Logs ///////////////////////////////////
