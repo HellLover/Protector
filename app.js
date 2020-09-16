@@ -65,7 +65,7 @@ catch(e) {
 
 client.on('messageReactionAdd', async (reaction, user) => {
     const handleStarboard = async () => {
-        const starboard = client.channels.cache.find(channel => channel.name.toLowerCase() === '〘🌟〙【starboard】');
+        const starboard = client.channels.cache.find(channel => channel.name.toLowerCase() === '🌟・starboard');
         const msgs = await starboard.messages.fetch({ limit: 100 });
         const existingMsg = msgs.find(msg =>
             msg.embeds.length === 1 ?
@@ -85,7 +85,7 @@ client.on('messageReactionAdd', async (reaction, user) => {
         }
     }
     if(reaction.emoji.name === '🌟') {
-        if(reaction.message.channel.name.toLowerCase() === '〘🌟〙【starboard】') return;
+        if(reaction.message.channel.name.toLowerCase() === '🌟・starboard') return;
         if(reaction.message.partial) {
             await reaction.fetch();
             await reaction.message.fetch();
@@ -98,7 +98,7 @@ client.on('messageReactionAdd', async (reaction, user) => {
 
 client.on('messageReactionRemove', async (reaction, user) => {
     const handleStarboard = async () => {
-        const starboard = client.channels.cache.find(channel => channel.name.toLowerCase() === '〘🌟〙【starboard】');
+        const starboard = client.channels.cache.find(channel => channel.name.toLowerCase() === '🌟・starboard');
         const msgs = await starboard.messages.fetch({ limit: 100 });
         const existingMsg = msgs.find(msg =>
             msg.embeds.length === 1 ?
@@ -111,7 +111,7 @@ client.on('messageReactionRemove', async (reaction, user) => {
         };
     }
     if(reaction.emoji.name === '🌟') {
-        if(reaction.message.channel.name.toLowerCase() === '〘🌟〙【starboard】') return;
+        if(reaction.message.channel.name.toLowerCase() === '🌟・starboard') return;
         if(reaction.message.partial) {
             await reaction.fetch();
             await reaction.message.fetch();
@@ -156,7 +156,7 @@ client.on('guildMemberAdd', async member => {
   });
 
   client.on("guildMemberRemove", async member => {
-  let leaveChannel = client.channels.cache.get("664901915326414879")
+  let leaveChannel = client.channels.cache.get("755756966453706822")
 
     if(leaveChannel === null) {
       return;
