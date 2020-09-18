@@ -59,6 +59,55 @@ try {
 
 catch(e) {
    }
+    
+    function Check(str) {
+    if (
+      client.emojis.cache.find(emoji => emoji.name === str) ||
+      message.guild.emojis.cache.find(emoji => emoji.name === str)
+    ) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+  if (message.content.startsWith(":") && message.content.endsWith(":")) {
+    let EmojiName = message.content.slice(1, -1);
+
+    if (Check(EmojiName) === true) {
+      const channel = client.channels.cache.get(message.channel.id);
+      try {
+        let webhooks = await channel.fetchWebhooks();
+        let webhook = webhooks.first();
+        if (webhook === undefined || null || !webhook) {
+          let Created = channel
+            .createWebhook("HellLover")
+            .then(async webhook => {
+              const emoji =
+                client.emojis.cache.find(e => e.name == EmojiName).id ||
+                message.guild.emojis.cache.find(e => e.name === EmojiName).id;
+
+              await webhook.send(`${client.emojis.cache.get(emoji)}`, {
+                username: message.author.username,
+                avatarURL: message.author.avatarURL({ dynamic: true })
+              });
+              message.delete();
+            });
+        }
+
+        const emoji =
+          client.emojis.cache.find(e => e.name == EmojiName).id ||
+          message.guild.emojis.cache.find(e => e.name === EmojiName).id;
+
+        await webhook.send(`${client.emojis.cache.get(emoji)}`, {
+          username: message.author.username,
+          avatarURL: message.author.avatarURL({ dynamic: true })
+        });
+        message.delete();
+      } catch (error) {
+        message.channel.send({ embed: { color: "RED", description: `Error: \n${error}` }});
+      }
+    }
+  }
 
 });
 ///////////////////////////////// Starboard /////////////////////////////////
