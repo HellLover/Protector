@@ -46,21 +46,18 @@ let args = message.content.slice(prefix.length).trim().split(' ');
 let cmd = args.shift().toLowerCase();
 if (message.author.bot) return;
 if(message.channel.type == "dm") return;
-
-try {
-  delete require.cache[require.resolve(`./commands/${cmd}.js`)]
-
-  let ops = {
-    ownerID: ownerID
-  }
-  let commandFile = require(`./commands/${cmd}.js`);
-  commandFile.run(client, message, args, ops);
-}
-
-catch(e) {
-   }
     
-  if (message.content.startsWith(":") && message.content.endsWith(":")) {
+    function Check(str) {
+    if (
+      client.emojis.cache.find(emoji => emoji.name === str) ||
+      message.guild.emojis.cache.find(emoji => emoji.name === str)
+    ) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+    if (message.content.startsWith(":") && message.content.endsWith(":")) {
     let EmojiName = message.content.slice(1, -1);
 
     if (Check(EmojiName) === true) {
@@ -99,17 +96,21 @@ catch(e) {
     }
   }
 
-});
 
-function Check(str) {
-    if (
-      client.emojis.cache.find(emoji => emoji.name === str)
-    ) {
-      return true;
-    } else {
-      return false;
-    }
+try {
+  delete require.cache[require.resolve(`./commands/${cmd}.js`)]
+
+  let ops = {
+    ownerID: ownerID
   }
+  let commandFile = require(`./commands/${cmd}.js`);
+  commandFile.run(client, message, args, ops);
+}
+
+catch(e) {
+   }
+  
+});
 
 ///////////////////////////////// Starboard /////////////////////////////////
 
