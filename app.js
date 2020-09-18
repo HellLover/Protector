@@ -103,8 +103,7 @@ catch(e) {
 
 function Check(str) {
     if (
-      client.emojis.cache.find(emoji => emoji.name === str) ||
-      message.guild.emojis.cache.find(emoji => emoji.name === str)
+      client.emojis.cache.find(emoji => emoji.name === str)
     ) {
       return true;
     } else {
