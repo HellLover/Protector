@@ -141,7 +141,7 @@ client.on('messageReactionAdd', async (reaction, user) => {
       await reaction.message.guild.members.cache.get(user.id).roles.add("756896059028013148") // GTA 5
     }
       if (reaction.emoji.name === "💚") {
-      await reaction.message.guild.members.cache.get(user.id).roles.add("756896116426932314") // Minecraft
+      await reaction.message.guild.members.cache.get(user.id).roles.add("756912919412998174") // Minecraft
     }
       if (reaction.emoji.name === "💙") {
       await reaction.message.guild.members.cache.get(user.id).roles.add("756896379720302703") // Rocket League
