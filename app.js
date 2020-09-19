@@ -115,6 +115,7 @@ catch(e) {
 ///////////////////////////////// ... /////////////////////////////////
 
 client.on('messageReactionAdd', async (reaction, user) => {
+    const minecraft = reaction.guild.roles.cache.find(r => r.name === "Minecraft")
      if (reaction.message.partial) await reaction.message.fetch();
      if (reaction.partial) await reaction.fetch();
   
@@ -141,7 +142,7 @@ client.on('messageReactionAdd', async (reaction, user) => {
       await reaction.message.guild.members.cache.get(user.id).roles.add("756896059028013148") // GTA 5
     }
       if (reaction.emoji.name === "💚") {
-      await reaction.message.guild.members.cache.get(user.id).roles.add("756912919412998174") // Minecraft
+      await reaction.message.guild.members.cache.get(user.id).roles.add(minecraft) // Minecraft
     }
       if (reaction.emoji.name === "💙") {
       await reaction.message.guild.members.cache.get(user.id).roles.add("756896379720302703") // Rocket League
