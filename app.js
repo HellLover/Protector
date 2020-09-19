@@ -115,7 +115,7 @@ catch(e) {
 ///////////////////////////////// ... /////////////////////////////////
 
 client.on('messageReactionAdd', async (reaction, user) => {
-    const minecraft = reaction.guild.roles.cache.find(r => r.name === "Minecraft")
+    const minecraft = reaction.message.guild.roles.cache.find(r => r.name === "Minecraft")
      if (reaction.message.partial) await reaction.message.fetch();
      if (reaction.partial) await reaction.fetch();
   
