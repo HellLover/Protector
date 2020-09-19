@@ -112,9 +112,52 @@ catch(e) {
   
 });
 
-///////////////////////////////// Starboard /////////////////////////////////
+///////////////////////////////// ... /////////////////////////////////
 
 client.on('messageReactionAdd', async (reaction, user) => {
+     if (reaction.message.partial) await reaction.message.fetch();
+     if (reaction.partial) await reaction.fetch();
+  
+  if (user.bot) return;
+  if (!reaction.message.guild) return;
+  if (reaction.message.guild.id !== "602514533764038709") return;
+  
+  if (reaction.message.channel.id === "756893315705602290" && reaction.message.channel.id === "756893220004167753") {
+    if (reaction.emoji.name === "📹") {
+      await reaction.message.guild.members.cache.get(user.id).roles.add("755370817805877338") // Новое видео
+    }
+    
+    if (reaction.emoji.name === "🎉") {
+      await reaction.message.guild.members.cache.get(user.id).roles.add("756897598048305233"); // Розыгрыши
+    }
+      
+    if (reaction.emoji.name === "📰") {
+      await reaction.message.guild.members.cache.get(user.id).roles.add("756605880384094219") // Новости
+    }
+      if (reaction.emoji.name === "❤️") {
+      await reaction.message.guild.members.cache.get(user.id).roles.add("756896008608153621") // Valorant
+    }
+      if (reaction.emoji.name === "🧡") {
+      await reaction.message.guild.members.cache.get(user.id).roles.add("756896059028013148") // GTA 5
+    }
+      if (reaction.emoji.name === "💚") {
+      await reaction.message.guild.members.cache.get(user.id).roles.add("756896116426932314") // Minecraft
+    }
+      if (reaction.emoji.name === "💙") {
+      await reaction.message.guild.members.cache.get(user.id).roles.add("756896379720302703") // Rocket League
+    }
+      if (reaction.emoji.name === "🤎") {
+      await reaction.message.guild.members.cache.get(user.id).roles.add("756896454571720807") // Watch Dogs
+    }
+      if (reaction.emoji.name === "💜") {
+      await reaction.message.guild.members.cache.get(user.id).roles.add("756896001691746435") // CS:GO
+    }
+      if (reaction.emoji.name === "🖤") {
+      await reaction.message.guild.members.cache.get(user.id).roles.add("756896006884425728") // PUBG
+    }
+  } else {
+    return;
+  }
     const handleStarboard = async () => {
         const starboard = client.channels.cache.find(channel => channel.name.toLowerCase() === '〘🌟〙・starboard');
         const msgs = await starboard.messages.fetch({ limit: 100 });
@@ -148,6 +191,49 @@ client.on('messageReactionAdd', async (reaction, user) => {
 });
 
 client.on('messageReactionRemove', async (reaction, user) => {
+     if (reaction.message.partial) await reaction.message.fetch();
+     if (reaction.partial) await reaction.fetch();
+  
+  if (user.bot) return;
+  if (!reaction.message.guild) return;
+  if (reaction.message.guild.id !== "602514533764038709") return;
+  
+  if (reaction.message.channel.id === "756893315705602290" && reaction.message.channel.id === "756893220004167753") {
+    if (reaction.emoji.name === "📹") {
+      await reaction.message.guild.members.cache.get(user.id).roles.remove("755370817805877338") // Новое видео
+    }
+    
+    if (reaction.emoji.name === "🎉") {
+      await reaction.message.guild.members.cache.get(user.id).roles.remove("756897598048305233"); // Розыгрыши
+    }
+      
+    if (reaction.emoji.name === "📰") {
+      await reaction.message.guild.members.cache.get(user.id).roles.remove("756605880384094219") // Новости
+    }
+      if (reaction.emoji.name === "❤️") {
+      await reaction.message.guild.members.cache.get(user.id).roles.remove("756896008608153621") // Valorant
+    }
+      if (reaction.emoji.name === "🧡") {
+      await reaction.message.guild.members.cache.get(user.id).roles.remove("756896059028013148") // GTA 5
+    }
+      if (reaction.emoji.name === "💚") {
+      await reaction.message.guild.members.cache.get(user.id).roles.remove("756896116426932314") // Minecraft
+    }
+      if (reaction.emoji.name === "💙") {
+      await reaction.message.guild.members.cache.get(user.id).roles.remove("756896379720302703") // Rocket League
+    }
+      if (reaction.emoji.name === "🤎") {
+      await reaction.message.guild.members.cache.get(user.id).roles.remove("756896454571720807") // Watch Dogs
+    }
+      if (reaction.emoji.name === "💜") {
+      await reaction.message.guild.members.cache.get(user.id).roles.remove("756896001691746435") // CS:GO
+    }
+      if (reaction.emoji.name === "🖤") {
+      await reaction.message.guild.members.cache.get(user.id).roles.remove("756896006884425728") // PUBG
+    }
+  } else {
+    return;
+  }
     const handleStarboard = async () => {
         const starboard = client.channels.cache.find(channel => channel.name.toLowerCase() === '〘🌟〙・starboard');
         const msgs = await starboard.messages.fetch({ limit: 100 });
