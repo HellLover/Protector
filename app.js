@@ -198,7 +198,7 @@ client.on('messageReactionRemove', async (reaction, user) => {
   if (!reaction.message.guild) return;
   if (reaction.message.guild.id !== "602514533764038709") return;
   
-  if (reaction.message.channel.id === "756893315705602290" && reaction.message.channel.id === "756893220004167753") {
+  if (reaction.message.id === "756903700592590938" || reaction.message.id === "756902515039010946") {
     if (reaction.emoji.name === "📹") {
       await reaction.message.guild.members.cache.get(user.id).roles.remove("755370817805877338") // Новое видео
     }
