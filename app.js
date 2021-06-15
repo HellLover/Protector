@@ -31,9 +31,8 @@ tempChannels.registerChannel("747060794054934588", {
 });
 
 client.on('ready', async () => {
-  client.user.setActivity(`HellLover Team`, {
-    type: "STREAMING",
-    url: "https://www.twitch.tv/samohelllover"
+  client.user.setActivity(`nudes`, {
+    type: "WATCHING",
   })
   console.log(`${client.user.username} Is Online !`)
 })
